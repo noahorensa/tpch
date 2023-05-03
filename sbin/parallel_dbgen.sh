@@ -42,27 +42,23 @@ echo $(hostname): Generating TPCH-DB, scale = $SCALE, chunks=$CHUNKS, worker=$WO
 
 cd ../dbgen
 
-if [ $CHUNKS -eq 1 ]
-then
+if [ $CHUNKS -eq 1 ]; then
     ./dbgen -s $SCALE -f &> /dev/null &
 else
-    if [ $WORKER_ID -eq 0 ]
-    then
-        ./dbgen -S $n -s $SCALE -f -T l &> /dev/null &
+    if [ $WORKER_ID -eq 0 ]; then
+        ./dbgen -s $SCALE -f -T l &> /dev/null &
     fi
     let start=$WORKER_ID+1
     for n in $(seq $start $WORKERS $CHUNKS); do 
-        ./dbgen -C $CHUNKS -S $n -s $SCALE -f -T o &> /dev/null &
-        ./dbgen -C $CHUNKS -S $n -s $SCALE -f -T p &> /dev/null &
-        ./dbgen -C $CHUNKS -S $n -s $SCALE -f -T s &> /dev/null &
-        ./dbgen -C $CHUNKS -S $n -s $SCALE -f -T S &> /dev/null &
-        ./dbgen -C $CHUNKS -S $n -s $SCALE -f -T c &> /dev/null &
+        ./dbgen -C $CHUNKS -S $n -s $SCALE -f -T o -T p -T s -T S -T c &> /dev/null &
     done
 fi
 
 wait
 
 for table in customer lineitem nation orders partsupp part region supplier ; do
-    mkdir -p ../data/SF-$SCALE/$table
-    mv $table.tbl* ../data/SF-$SCALE/$table/
+    if [ -f $table.tbl* ]; then
+        mkdir -p ../data/SF-$SCALE/$table
+        mv $table.tbl* ../data/SF-$SCALE/$table/
+    fi
 done
