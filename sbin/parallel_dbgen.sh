@@ -38,10 +38,9 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-echo $(hostname): Generating TPCH-DB, scale = $SCALE
+echo $(hostname): Generating TPCH-DB, scale = $SCALE, chunks=$CHUNKS, worker=$WORKER_ID
 
 cd ../dbgen
-
 
 if [ $CHUNKS -eq 1 ]
 then
@@ -53,7 +52,11 @@ else
     fi
     let start=$WORKER_ID+1
     for n in $(seq $start $WORKERS $CHUNKS); do 
-        ./dbgen -C $CHUNKS -S $n -s $SCALE -f &> /dev/null &
+        ./dbgen -C $CHUNKS -S $n -s $SCALE -f -T o &> /dev/null &
+        ./dbgen -C $CHUNKS -S $n -s $SCALE -f -T p &> /dev/null &
+        ./dbgen -C $CHUNKS -S $n -s $SCALE -f -T s &> /dev/null &
+        ./dbgen -C $CHUNKS -S $n -s $SCALE -f -T S &> /dev/null &
+        ./dbgen -C $CHUNKS -S $n -s $SCALE -f -T c &> /dev/null &
     done
 fi
 
