@@ -54,3 +54,6 @@ dkms.conf
 
 sbin/workers
 sbin/.env
+
+dbgen/dbgen
+dbgen/qgen
