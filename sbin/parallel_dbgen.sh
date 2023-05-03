@@ -61,7 +61,7 @@ fi
 wait
 
 for table in customer lineitem nation orders partsupp part region supplier ; do
-    if [ -f $table.tbl* ]; then
+    if ls $table.tbl* 1> /dev/null 2>&1; then
         mkdir -p ../data/SF-$SCALE/$table
         mv $table.tbl* ../data/SF-$SCALE/$table/
     fi
