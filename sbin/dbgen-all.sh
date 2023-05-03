@@ -2,8 +2,10 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 cd $DIR
 source .env
 
-for i in "$@"; do
-    case $i in
+while [[ $# -gt 0 ]]; do
+    key="$1"
+
+    case $key in
         -sf)
         SCALE=$2
         shift
