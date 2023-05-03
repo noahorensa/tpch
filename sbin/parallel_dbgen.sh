@@ -50,7 +50,11 @@ else
     fi
     let start=$WORKER_ID+1
     for n in $(seq $start $WORKERS $CHUNKS); do 
-        ./dbgen -C $CHUNKS -S $n -s $SCALE -f -T o -T p -T s -T S -T c &> /dev/null &
+        ./dbgen -C $CHUNKS -S $n -s $SCALE -f -T o &> /dev/null &
+        ./dbgen -C $CHUNKS -S $n -s $SCALE -f -T p &> /dev/null &
+        ./dbgen -C $CHUNKS -S $n -s $SCALE -f -T s &> /dev/null &
+        ./dbgen -C $CHUNKS -S $n -s $SCALE -f -T S &> /dev/null &
+        ./dbgen -C $CHUNKS -S $n -s $SCALE -f -T c &> /dev/null &
     done
 fi
 
