@@ -42,6 +42,8 @@ echo $(hostname): Generating TPCH-DB, scale = $SCALE, chunks=$CHUNKS, worker=$WO
 
 cd ../dbgen
 
+start_time=$(date +%s.%3N)
+
 if [ $CHUNKS -eq 1 ]; then
     ./dbgen -s $SCALE -f &> /dev/null &
 else
@@ -66,3 +68,9 @@ for table in customer lineitem nation orders partsupp part region supplier ; do
         mv $table.tbl* ../data/SF-$SCALE/$table/
     fi
 done
+
+end_time=$(date +%s.%3N)
+
+elapsed=$(echo "scale=3; $end_time - $start_time" | bc)
+
+echo $(hostname): worker=$WORKER_ID, elapsed_time = $elapsed
