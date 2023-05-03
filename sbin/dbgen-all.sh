@@ -1,6 +1,6 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 cd $DIR
-source .env
+source ./.env
 
 while [[ $# -gt 0 ]]; do
     key="$1"
@@ -25,7 +25,6 @@ while [[ $# -gt 0 ]]; do
 done
 
 echo Parallel TPCH dbgen
-echo Scale factor = $SCALE
 
 #remove empty lines from workers
 sed -i '/^$/d' workers
