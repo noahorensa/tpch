@@ -52,10 +52,29 @@ else
     fi
     let start=$WORKER_ID+1
     for n in $(seq $start $WORKERS $CHUNKS); do 
+        if [ $(pgrep -c -P$$) -ge $(nproc) ]; then
+            wait -n
+        fi
         ./dbgen -C $CHUNKS -S $n -s $SCALE -f -T o &> /dev/null &
+
+        if [ $(pgrep -c -P$$) -ge $(nproc) ]; then
+            wait -n
+        fi
         ./dbgen -C $CHUNKS -S $n -s $SCALE -f -T p &> /dev/null &
+
+        if [ $(pgrep -c -P$$) -ge $(nproc) ]; then
+            wait -n
+        fi
         ./dbgen -C $CHUNKS -S $n -s $SCALE -f -T s &> /dev/null &
+
+        if [ $(pgrep -c -P$$) -ge $(nproc) ]; then
+            wait -n
+        fi
         ./dbgen -C $CHUNKS -S $n -s $SCALE -f -T S &> /dev/null &
+
+        if [ $(pgrep -c -P$$) -ge $(nproc) ]; then
+            wait -n
+        fi
         ./dbgen -C $CHUNKS -S $n -s $SCALE -f -T c &> /dev/null &
     done
 fi
