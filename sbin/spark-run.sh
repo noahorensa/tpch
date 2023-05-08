@@ -22,18 +22,19 @@ while [[ $# -gt 0 ]]; do
 
         *)
         echo "Unknown argument $i"    # unknown option
+        shift
         ;;
     esac
 done
 
 if [ -z $CONFIG ]; then
     $SPARK_HOME/bin/spark-submit \
-        --class main.scala.TPCH \
+        --class TPCH \
         ../spark/target/scala-2.12/spark_2.12-0.1.0-SNAPSHOT.jar \
         $INPUT_PATH
 else
     $SPARK_HOME/bin/spark-submit \
-        --class main.scala.TPCH \
+        --class TPCH \
         --properties-file $CONFIG \
         ../spark/target/scala-2.12/spark_2.12-0.1.0-SNAPSHOT.jar \
         $INPUT_PATH
