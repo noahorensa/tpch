@@ -26,8 +26,8 @@ abstract class TPCBenchmark {
   }
 
   def writeParquet(path: String) {
-    Spark.spark.sqlContext.setConf("spark.sql.parquet.compression.codec", "none");
-    Spark.spark.sqlContext.setConf("parquet.enable.dictionary", "false");
+//    Spark.spark.sqlContext.setConf("spark.sql.parquet.compression.codec", "none");
+//    Spark.spark.sqlContext.setConf("parquet.enable.dictionary", "false");
 
     val start = System.nanoTime()
 
