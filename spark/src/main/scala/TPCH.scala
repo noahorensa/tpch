@@ -819,7 +819,7 @@ object TPCH extends TPCBenchmark {
 
     writeParquet(path)
     loadParquet(path)
-    loadCsv(path)
+//    loadCsv(path)
 //    initHive()
     addViews()
     run(s"tpch-times.txt", path)
