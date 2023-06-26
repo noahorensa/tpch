@@ -30,12 +30,12 @@ done
 if [ -z $CONFIG ]; then
     $SPARK_HOME/bin/spark-submit \
         --class TPCH \
-        ../spark/target/scala-2.12/spark_2.12-0.1.0-SNAPSHOT.jar \
+        ../spark/target/scala-2.11/spark_2.11-0.1.0-SNAPSHOT.jar \
         $INPUT_PATH
 else
     $SPARK_HOME/bin/spark-submit \
         --class TPCH \
         --properties-file $CONFIG \
-        ../spark/target/scala-2.12/spark_2.12-0.1.0-SNAPSHOT.jar \
+        ../spark/target/scala-2.11/spark_2.11-0.1.0-SNAPSHOT.jar \
         $INPUT_PATH
 fi
